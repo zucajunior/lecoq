@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Listagem de Itens de Pedido</h2>
+  <ul>
+    {% for item_pedido in itens_pedido %}
+      <li>
+        Pedido: {{ item_pedido.cod_pedido.codigo }} - Produto: {{ item_pedido.cod_prod.nome }}  - Quantidade: {{ item_pedido.quantidade }} - Vencimento: {{ item_pedido.data_vencimento }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

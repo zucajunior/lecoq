@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Pedido</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .detalhes-pedido {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"><h1>Detalhes do Pedido</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Código do Pedido:</th>
+        <td>{{ pedido.codigo }}</td>
+    </tr>
+    <tr>
+        <th>Local de Entrega:</th>
+        <td><b>{{ pedido.cod_cliente.nome}} ..: {{ pedido.cod_cliente.responsavel }}</b></td>
+    </tr>
+    <tr>
+        <th>Data de Entrega:</th>
+        <td>{{ pedido.data_entrega }}</td>
+    </tr>
+    <tr>
+        <th>Faturado:</th>
+        <td>{% if pedido.faturado %}Sim{% else %}Não{% endif %}</td>
+    </tr>
+    <tr>
+        <th>Data de Criação:</th>
+        <td>{{ pedido.data_criacao }}</td>
+    </tr>
+    <tr>
+        <th>Data de Alteração:</th>
+        <td>{{ pedido.data_alteracao }}</td>
+    </tr>
+    <tr>
+        <th>Valor TOTAL do PEDIDO:</th>
+        <td>{{ pedido.valor }}</td>
+    </tr>
+</table>
+<style>
+    /* Estilos para a tabela */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Estilos para as células da tabela */
+    .table th,
+    .table td {
+        padding: 5px; /* Espaçamento interno */
+        max-width: 150px; /* Largura máxima das células */
+        white-space: nowrap; /* Evita que o texto seja quebrado em várias linhas */
+        overflow: hidden; /* Oculta conteúdo que ultrapassa a largura */
+        text-overflow: ellipsis; /* Adiciona reticências (...) para conteúdo cortado */
+    }
+</style>
+
+
+        <!-- Itens do Pedido -->
+        <h2>Itens do Pedido</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preco</th>
+                    <th>Sub Total</th>
+                    <th>Data de Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens_pedido %}
+                    <tr>
+                        <td>{{ item.cod_prod.nome }}</td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>{{ item.preco }}</td>
+                        <td>{{ item.calcular_valor_total }}</td>
+                        <td>{{ item.data_vencimento }}</td>
+                        <td>
+                            <a href="{% url 'editar_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{% url 'excluir_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'cadastrar_item_pedido' pedido.codigo %}" class="btn btn-primary">Incluir Produto</a>
+        <a href="{% url 'listar_pedidos' %}" class="btn btn-primary">Finalizar</a>
+        <a href="{% url 'imprimir_pedido' pedido_id=pedido.pk %}" class="btn btn-secondary">Imprimir Pedido</a>
+
+    </div>
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.total').each(function () {
+            var quantidade = parseFloat($(this).prev().prev().text());
+            var preco = parseFloat($(this).prev().text());
+            var total = quantidade * preco;
+            $(this).text(total.toFixed(2));  // Formata para duas casas decimais
+        });
+    });
+</script>

@@ -1,0 +1,8 @@
+/* styles.css */
+
+body {
+    background-image: url('http://zuca.site/image/Donuts02.jpg'); /* Substitua o caminho pela localização da sua imagem */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

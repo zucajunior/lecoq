@@ -1,0 +1,1 @@
+web gunicorn lecoq.wsgi:application --log-file -

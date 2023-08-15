@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Ingredientes - LeCoq</title>
+</head>
+<body>
+    <h1>Lista de Ingredientes</h1>
+    <ul>
+        {% for ingrediente in ingredientes %}
+            <li>{{ ingrediente.descricao }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

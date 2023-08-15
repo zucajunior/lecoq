@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastrar Tabela Nutricional para Produto</title>
+</head>
+<body>
+    <h1>Cadastrar Tabela Nutricional para Produto</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
+    <a href="{% url 'listar_produtos' %}">Voltar para Listagem de Produtos</a>
+</body>
+</html>

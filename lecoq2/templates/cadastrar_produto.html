@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Cadastro de Produto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        /* Estilos para campos de entrada */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        /* Estilos para o botão */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /* Adicione mais estilos conforme necessário */
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Produto</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="preco1">Preço 1:</label>
+                <input type="number" class="form-control" id="preco1" name="preco1" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="preco2">Preço 2:</label>
+                <input type="number" class="form-control" id="preco2" name="preco2" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="preco3">Preço 3:</label>
+                <input type="number" class="form-control" id="preco3" name="preco3" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="preco_custo">Preço de Custo:</label>
+                <input type="number" class="form-control" id="preco_custo" name="preco_custo" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="valor_energetico">Valor Energético:</label>
+                <input type="number" class="form-control" id="valor_energetico" name="valor_energetico" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="porcao">Porção:</label>
+                <input type="number" class="form-control" id="porcao" name="porcao" required>
+            </div>
+            <div class="form-group">
+                <label for="peso">Peso:</label>
+                <input type="number" class="form-control" id="peso" name="peso" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="dias_validade">Dias de Validade:</label>
+                <input type="number" class="form-control" id="dias_validade" name="dias_validade" required>
+            </div>
+            <!-- Adicione mais campos aqui -->
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+        <button class="btn btn-secondary" onclick="goBack()">Voltar</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

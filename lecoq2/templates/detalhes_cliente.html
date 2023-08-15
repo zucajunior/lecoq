@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        /* Adicione mais estilos conforme necessário */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Cliente</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" id="endereco" name="endereco">
+            </div>
+            <div class="form-group">
+                <label for="responsavel">Responsável:</label>
+                <input type="text" class="form-control" id="responsavel" name="responsavel">
+            </div>
+            <!-- Adicione os campos restantes aqui -->
+            <div class="form-group">
+                <label for="hora_intervalo">Hora Intervalo:</label>
+                <input type="time" class="form-control" id="hora_intervalo" name="hora_intervalo">
+            </div>
+            <div class="form-group">
+                <label for="hora_intervalo2">Hora Intervalo 2:</label>
+                <input type="time" class="form-control" id="hora_intervalo2" name="hora_intervalo2">
+            </div>
+            <div class="form-group">
+                <label for="dia_semana_entrega">Dia da Semana de Entrega:</label>
+                <input type="text" class="form-control" id="dia_semana_entrega" name="dia_semana_entrega">
+            </div>
+            <div class="form-group">
+                <label for="whats_cantina">WhatsApp da Cantina:</label>
+                <input type="text" class="form-control" id="whats_cantina" name="whats_cantina">
+            </div>
+            <div class="form-group">
+                <label for="nome_funcionaria_responsavel">Nome da Funcionária Responsável:</label>
+                <input type="text" class="form-control" id="nome_funcionaria_responsavel" name="nome_funcionaria_responsavel">
+            </div>
+            <!-- Fim dos campos adicionais -->
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="{% url 'listar_clientes' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+        <button class="btn btn-secondary" onclick="goBack()">Voltar</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

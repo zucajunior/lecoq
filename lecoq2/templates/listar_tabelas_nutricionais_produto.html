@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Listagem de Tabelas Nutricionais de Produtos</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Produto</th>
+        <th>Valor</th>
+        <th>PorcentagemVD</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tabela in tabelas_nutricionais_produtos %}
+        <tr>
+          <td>{{ tabela.codigo_nutri.descricao }}</td>
+          <td>{{ tabela.codigo_prod.nome }}</td>
+          <td>{{ tabela.valor }}</td>
+          <td>{{ tabela.porcentagemVD }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

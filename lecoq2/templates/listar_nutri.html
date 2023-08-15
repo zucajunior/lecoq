@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Tabelas Nutricionais</title>
+</head>
+<body>
+    <h1>Lista de Tabelas Nutricionais</h1>
+    <ul>
+        {% for tabela_nutricional in tabelas_nutricionais %}
+            <li>{{ tabela_nutricional.descricao }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

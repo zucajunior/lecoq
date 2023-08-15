@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        /* Estilos para campos de entrada */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        /* Estilos para o botão */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /* Adicione mais estilos conforme necessário */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Cliente</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ form.nome.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" id="endereco" name="endereco" value="{{ form.endereco.value }}">
+            </div>
+            <div class="form-group">
+                <label for="responsavel">Responsável:</label>
+                <input type="text" class="form-control" id="responsavel" name="responsavel" value="{{ form.responsavel.value }}">
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ form.cnpj.value }}">
+            </div>
+            <div class="form-group">
+                <label for="whats">WhatsApp:</label>
+                <input type="text" class="form-control" id="whats" name="whats" value="{{ form.whats.value }}">
+            </div>
+            <div class="form-group">
+                <label for="hora_abertura">Hora de Abertura:</label>
+                <input type="time" class="form-control" id="hora_abertura" name="hora_abertura" value="{{ form.hora_abertura.value }}">
+            </div>
+            <div class="form-group">
+                <label for="hora_fechamento">Hora de Fechamento:</label>
+                <input type="time" class="form-control" id="hora_fechamento" name="hora_fechamento" value="{{ form.hora_fechamento.value }}">
+            </div>
+            <!-- Adicione mais campos aqui -->
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+        <br>
+        <a href="{% url 'listar_clientes' %}">Voltar para a lista de clientes</a>
+    </div>
+</body>
+</html>

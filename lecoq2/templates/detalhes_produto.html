@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        /* Adicione mais estilos conforme necessário */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Produto</h1>
+        <dl class="row">
+            <dt class="col-sm-3">Código:</dt>
+            <dd class="col-sm-9">{{ produto.codigo }}</dd>
+
+            <dt class="col-sm-3">Nome:</dt>
+            <dd class="col-sm-9">{{ produto.nome }}</dd>
+
+            <dt class="col-sm-3">Preço 1:</dt>
+            <dd class="col-sm-9">{{ produto.preco1 }}</dd>
+
+            <dt class="col-sm-3">Preço 2:</dt>
+            <dd class="col-sm-9">{{ produto.preco2 }}</dd>
+
+            <dt class="col-sm-3">Preço 3:</dt>
+            <dd class="col-sm-9">{{ produto.preco3 }}</dd>
+
+            <dt class="col-sm-3">Preço de Custo:</dt>
+            <dd class="col-sm-9">{{ produto.preco_custo }}</dd>
+
+            <dt class="col-sm-3">Valor Energético:</dt>
+            <dd class="col-sm-9">{{ produto.valor_energetico }}</dd>
+
+            <dt class="col-sm-3">Porção:</dt>
+            <dd class="col-sm-9">{{ produto.porcao }}</dd>
+
+            <dt class="col-sm-3">Peso:</dt>
+            <dd class="col-sm-9">{{ produto.peso }}</dd>
+
+            <dt class="col-sm-3">Dias de Validade:</dt>
+            <dd class="col-sm-9">{{ produto.dias_validade }}</dd>
+        </dl>
+        <a href="{% url 'listar_produtos' %}" class="btn btn-primary">Voltar para a lista de produtos</a>
+        <button class="btn btn-secondary" onclick="goBack()">Voltar</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

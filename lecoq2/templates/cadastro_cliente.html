@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        /* Estilos para campos de entrada */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+        /* Estilos para o botão */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /* Adicione mais estilos conforme necessário */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Cadastro de Cliente</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" class="form-control" id="endereco" name="endereco">
+            </div>
+            <div class="form-group">
+                <label for="responsavel">Responsável:</label>
+                <input type="text" class="form-control" id="responsavel" name="responsavel">
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" class="form-control" id="cnpj" name="cnpj">
+            </div>
+            <div class="form-group">
+                <label for="whats">WhatsApp:</label>
+                <input type="text" class="form-control" id="whats" name="whats">
+            </div>
+            <div class="form-group">
+                <label for="hora_abertura">Hora de Abertura:</label>
+                <input type="time" class="form-control" id="hora_abertura" name="hora_abertura" value="07:00">
+            </div>
+            <div class="form-group">
+                <label for="hora_fechamento">Hora de Fechamento:</label>
+                <input type="time" class="form-control" id="hora_fechamento" name="hora_fechamento" value="17:00">
+            </div>
+            <div class="form-group">
+                <label for="hora_intervalo">Hora Intervalo:</label>
+                <input type="time" class="form-control" id="hora_intervalo" name="hora_intervalo">
+            </div>
+            <div class="form-group">
+                <label for="hora_intervalo2">Hora Intervalo 2:</label>
+                <input type="time" class="form-control" id="hora_intervalo2" name="hora_intervalo2">
+            </div>
+            <div class="form-group">
+                <label for="dia_semana_entrega">Dia da Semana de Entrega:</label>
+                <input type="text" class="form-control" id="dia_semana_entrega" name="dia_semana_entrega">
+            </div>
+            <div class="form-group">
+                <label for="whats_cantina">WhatsApp da Cantina:</label>
+                <input type="text" class="form-control" id="whats_cantina" name="whats_cantina">
+            </div>
+            <div class="form-group">
+                <label for="nome_funcionaria_responsavel">Nome da Funcionária Responsável:</label>
+                <input type="text" class="form-control" id="nome_funcionaria_responsavel" name="nome_funcionaria_responsavel">
+            </div>
+            <!-- Adicione mais campos aqui -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+
+            </div>
+        </form>
+        <button class="btn btn-secondary" onclick="goBack()">Voltar</button>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

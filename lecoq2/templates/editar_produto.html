@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Editar Produto</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.nome.id_for_label }}">Nome:</label>
+      {{ form.nome }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.preco1.id_for_label }}">Preço 1:</label>
+      {{ form.preco1 }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.preco2.id_for_label }}">Preço 2:</label>
+      {{ form.preco2 }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.preco3.id_for_label }}">Preço 3:</label>
+      {{ form.preco3 }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.preco_custo.id_for_label }}">Preço de Custo:</label>
+      {{ form.preco_custo }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.valor_energetico.id_for_label }}">Valor Energético:</label>
+      {{ form.valor_energetico }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.porcao.id_for_label }}">Porção:</label>
+      {{ form.porcao }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.peso.id_for_label }}">Peso:</label>
+      {{ form.peso }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.dias_validade.id_for_label }}">Dias de Validade:</label>
+      {{ form.dias_validade }}
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'listar_produtos' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

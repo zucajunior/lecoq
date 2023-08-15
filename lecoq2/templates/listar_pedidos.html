@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listagem de Pedidos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilos para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .nome-cell {
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-group {
+            margin-right: 3px;
+        }
+        /* Estilo personalizado para a tabela de pedidos */
+        .table-pedidos {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+        .table-pedidos th, .table-pedidos td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table-pedidos th {
+            background-color: #f2f2f2;
+        }
+        .nome-cell {
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .btn-group {
+            margin-right: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Listagem de Pedidos</h1>
+        <table class="table-pedidos">
+            <tr>
+                <th>Código</th>
+                <th>Cliente</th>
+                <th>Data de Criação</th>
+                <th>Data de Entrega</th>
+                <th>Valor do Pedido</th>
+                <th>Faturado</th>
+                <th>Ações</th>
+            </tr>
+            {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.codigo }}</td>
+                    <td class="nome-cell">{{ pedido.cod_cliente.nome }}</td>
+                    <td>{{ pedido.data_criacao }}</td>
+                    <td>{{ pedido.data_entrega }}</td>
+                    <td>{{ pedido.valor }}</td>
+                    <td>{% if pedido.faturado %} Sim {% else %} Não {% endif %}</td>
+                    <td class="btn-group">
+                        <a href="{% url 'detalhes_pedido' pedido.codigo %}" class="btn btn-info">Detalhes</a>
+                        <a href="{% url 'editar_pedido' pedido.codigo %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'excluir_pedido' pedido.codigo %}" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="{% url 'cadastrar_pedido' %}" class="btn btn-primary">Novo Pedido</a>
+        <a href="{% url 'pedidos_aberto' %}" class="btn btn-secondary">Pedidos Aberto</a>
+    </div>
+</body>
+</html>

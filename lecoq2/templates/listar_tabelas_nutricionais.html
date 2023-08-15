@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Listagem de Tabelas Nutricionais</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tabela in tabelas_nutricionais %}
+        <tr>
+          <td>{{ tabela.descricao }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
