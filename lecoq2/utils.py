@@ -10,6 +10,7 @@ import locale
 #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def format_decimal(value, places=2):
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Defina o local adequado
     return locale.currency(value, grouping=True, symbol=False)
 
 
