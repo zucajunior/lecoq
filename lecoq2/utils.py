@@ -6,13 +6,10 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer,Image
 from django.http import HttpResponse
 
-import locale
-#locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
-def format_decimal(value, places=2):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Defina o local adequado
-    return locale.currency(value, grouping=True, symbol=False)
+def format_decimal(value):
 
+    return f'R$ {value:.2f}'
 
 def gerar_pdf_pedido(pedido):
     response = HttpResponse(content_type='application/pdf')
