@@ -13,7 +13,7 @@ def format_decimal(value):
 
 def gerar_pdf_pedido(pedido):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="pedido_{pedido.codigo}.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="pedido_{pedido.cod_cliente.nome}_{pedido.data_entrega}.pdf"'
 
     doc = SimpleDocTemplate(response, pagesize=letter,topMargin=10)
     story = []
@@ -73,7 +73,7 @@ def gerar_pdf_pedido(pedido):
         alignment=1,  # Alinhamento (0=esquerda, 1=centro, 2=direita)
     )
 
-    logo_path = 'C:/Users/zuca/Desktop/LE COQ Adesivos/LogoBrancaLeCoqGrande.png'
+    logo_path = 'http://zuca.site/image/LogoBrancaLeCoqGrande.jpg'
     logo = Image(logo_path, width=240, height=90)
     logo.hAlign = 'LEFT'  # Alinhar a imagem à esquerda
     story.append(logo)
