@@ -53,6 +53,7 @@ urlpatterns = [
          name='excluir_item_pedido'),
     path('pedido/<int:pedido_id>/imprimir/', views.imprimir_pedido,
          name='imprimir_pedido'),
+    path('relatorio/', views.relatorio_resumo, name='relatorio_resumo'),
 
 
 

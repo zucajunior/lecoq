@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Resumo</title>
+</head>
+<body>
+    <h1>Relatório de Resumo</h1>
+
+    <h2>Por Semana</h2>
+    <table>
+        <tr>
+            <th>Semana</th>
+            <th>Total</th>
+        </tr>
+        {% for item in relatorio_semanal %}
+        <tr>
+            <td>{{ item.semana }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Por Mês</h2>
+    <table>
+        <tr>
+            <th>Mês</th>
+            <th>Total</th>
+        </tr>
+        {% for item in relatorio_mensal %}
+        <tr>
+            <td>{{ item.mes }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

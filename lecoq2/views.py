@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente, Produto, ItemIngrediente, ItemTabelaNutricional, \
-    TabelaNutricionalProduto, Ingrediente, ItensPedido, Pedido
+    TabelaNutricionalProduto, Ingrediente, ItensPedido, Pedido, Sum
 from .forms import ClienteForm, ProdutoForm, PedidoForm, ItemTabelaNutricionalForm, \
     ItemIngredienteForm, TabelaNutricionalProdutoForm, ItemPedidoForm
 from django.http import HttpResponse
 from .utils import gerar_pdf_pedido  # Importe a função para gerar o PDF
 from django.http import JsonResponse
+from django.db.models.functions import TruncMonth, TruncWeek
 
 
 def home(request):
@@ -58,6 +59,14 @@ def cadastrar_cliente(request):
 
 
 
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
+""" P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
 """ P R O D U T O S   ***   P R O D U T O S   ***   P R O D U T O S   ***   """
 
 
@@ -116,9 +125,35 @@ def listar_nutri(request):
 
 
 
-
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
 
 """ P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+""" P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+
+
+def relatorio_resumo(request):
+    relatorio_semanal = Pedido.objects.annotate(semana=TruncWeek('data_criacao')).values('semana').annotate(
+        total=Sum('valor'))
+    relatorio_mensal = Pedido.objects.annotate(mes=TruncMonth('data_criacao')).values('mes').annotate(
+        total=Sum('valor'))
+
+    context = {
+        'relatorio_semanal': relatorio_semanal,
+        'relatorio_mensal': relatorio_mensal,
+    }
+
+    return render(request, 'relatorio_pedido_resumo.html', context)
 
 def imprimir_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, pk=pedido_id)
