@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 8px;
             background-color: #fff;
@@ -83,6 +83,8 @@
                 <tr>
                     <th>Produto</th>
                     <th>Quantidade</th>
+                    <th>Devolução</th>
+
                     <th>Preco</th>
                     <th>Sub Total</th>
                     <th>Data de Vencimento</th>
@@ -93,6 +95,7 @@
                     <tr>
                         <td>{{ item.cod_prod.nome }}</td>
                         <td>{{ item.quantidade }}</td>
+                        <td>{{ item.quantidade_dev }}</td>
                         <td>{{ item.preco }}</td>
                         <td>{{ item.calcular_valor_total }}</td>
                         <td>{{ item.data_vencimento }}</td>

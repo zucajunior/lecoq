@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Devolucao do Produto</h2>
-  <form method="post" action="{% url 'salvar_devolucao' pedido_id=pedido_id produto_id=produto_id %}">
-    {% csrf_token %}
+  <h3>Cliente.: {{pedido.cod_cliente.nome}}</h3>
+
+  <h3>Produto.: {{  item.cod_prod.nome}}</h3>
+
+  <form method="post" action="{% url 'salvar_devolucao'  pedido_id=pedido.pk produto_id=item.cod_prod.pk %}">
+  {% csrf_token %}
     <!-- Exibir informações do produto e campo para quantidade_dev -->
     <label for="quantidade_dev">Quantidade de Devolução:</label>
     <input type="number" name="quantidade_dev" required>

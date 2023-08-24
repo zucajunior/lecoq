@@ -314,6 +314,8 @@ def cadastrar_item_pedido(request, pedido_id):
         if form.is_valid():
             produto = form.cleaned_data['cod_prod']
             quantidade = form.cleaned_data['quantidade']
+            quantidade_dev = form.cleaned_data['quantidade_dev']
+
             preco = form.cleaned_data['preco']
             data_vencimento = form.cleaned_data['data_vencimento']
 
