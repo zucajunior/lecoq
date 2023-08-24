@@ -5,7 +5,22 @@
         <h1>Cadastrar Item de Pedido</h1>
         <form method="post">
             {% csrf_token %}
-            <input type="hidden" name="cod_pedido" value="{{ pedido.pk }}">
+            def inserir_devolucao(request, pedido_id, produto_id):
+    pedido = get_object_or_404(Pedido, pk=pedido_id)
+    item = get_object_or_404(ItensPedido, cod_pedido=pedido, cod_prod=produto_id)
+    return render(request, 'inserir_devolucao.html', {'pedido': pedido, 'item': item})
+
+def salvar_devolucao(request, pedido_id, produto_id):
+    if request.method == 'POST':
+        quantidade_dev = int(request.POST['quantidade_dev'])
+        pedido = get_object_or_404(Pedido, pk=pedido_id)
+        item = get_object_or_404(ItensPedido, cod_pedido=pedido, cod_prod=produto_id)
+
+        # Atualiza o campo quantidade_dev
+        item.quantidade_dev += quantidade_dev
+        item.save()
+
+        return redirect('detalhes_pedido', pedido_id=pedido.pk)
             <div class="form-group">
                 <label for="{{ form.cod_prod.id_for_label }}">Produto:</label>
                 {{ form.cod_prod }}
@@ -25,6 +40,11 @@
                 <label for="{{ form.preco.id_for_label }}">Preço:</label>
                 {{ form.preco }}
                 {{ form.preco.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.quantidade_dev.id_for_label }}">Devolução:</label>
+                {{ form.quantidade_dev }}
+                {{ form.quantidade_dev.errors }}
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
