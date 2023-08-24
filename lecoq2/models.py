@@ -97,6 +97,7 @@ class ItensPedido(models.Model):
     cod_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     cod_prod = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
+    quantidade_dev  = models.PositiveIntegerField(default=0)
     data_vencimento = models.DateField()
     preco = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
@@ -108,12 +109,14 @@ class ItensPedido(models.Model):
 
         # Calculate and update the Pedido's valor field with the sum of all ItensPedido values
         total_value = ItensPedido.objects.filter(cod_pedido=self.cod_pedido).aggregate(
-            total=Sum(F('quantidade') * F('preco'), output_field=models.DecimalField()))['total']
+            total=Sum(F('quantidade') * F('preco') - F('quantidade_dev') * F('preco'), output_field=DecimalField()))[
+            'total']
 
         Pedido.objects.filter(codigo=self.cod_pedido.codigo).update(valor=total_value or Decimal('0.00'))
 
     def calcular_valor_total(self):
-        return self.quantidade * self.preco
+        return (self.quantidade - self.quantidade_dev) * self.preco
+
 
 @receiver([post_save, post_delete], sender=ItensPedido)
 def update_pedido_alteracao(sender, instance, **kwargs):

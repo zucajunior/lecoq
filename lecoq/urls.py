@@ -53,7 +53,17 @@ urlpatterns = [
          name='excluir_item_pedido'),
     path('pedido/<int:pedido_id>/imprimir/', views.imprimir_pedido,
          name='imprimir_pedido'),
+    path('inserir_devolucao/<int:pedido_id>/<int:produto_id>/', views.inserir_devolucao,
+         name='inserir_devolucao'),
+    path('salvar_devolucao/<int:pedido_id>/<int:produto_id>/', views.salvar_devolucao,
+         name='salvar_devolucao'),
+
+
+
+
     path('relatorio/', views.relatorio_resumo, name='relatorio_resumo'),
+    path('enviar_mensagem_whatsapp/', views.enviar_mensagem_whatsapp, name='enviar_mensagem_whatsapp'),
+
 
 
 

@@ -97,6 +97,7 @@
                         <td>{{ item.calcular_valor_total }}</td>
                         <td>{{ item.data_vencimento }}</td>
                         <td>
+                            <a href="{% url 'inserir_devolucao' pedido_id=pedido.pk produto_id=item.cod_prod.pk %}" class="btn btn-primary">DEVOLUÇÃO</a>
                             <a href="{% url 'editar_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-primary">Editar</a>
                             <a href="{% url 'excluir_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-danger">Excluir</a>
 

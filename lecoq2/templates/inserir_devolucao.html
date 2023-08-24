@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Devolucao do Produto</h2>
+  <form method="post" action="{% url 'salvar_devolucao' pedido_id=pedido_id produto_id=produto_id %}">
+    {% csrf_token %}
+    <!-- Exibir informações do produto e campo para quantidade_dev -->
+    <label for="quantidade_dev">Quantidade de Devolução:</label>
+    <input type="number" name="quantidade_dev" required>
+    <button type="submit">Salvar</button>
+</form>
+{% endblock %}
+
+
+
+

@@ -7,6 +7,12 @@ from django.http import HttpResponse
 from .utils import gerar_pdf_pedido  # Importe a função para gerar o PDF
 from django.http import JsonResponse
 from django.db.models.functions import TruncMonth, TruncWeek
+import base64
+from twilio.rest import Client
+
+from django.template.loader import render_to_string
+
+
 
 
 def home(request):
@@ -140,7 +146,67 @@ def listar_nutri(request):
 """ P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
 
 """ P E D I D O S   ***   P E D I D O S   ***   P E D I D O S   ***   """
+def inserir_devolucao(request, pedido_id, produto_id):
+    pedido = get_object_or_404(Pedido, pk=pedido_id)
+    item = get_object_or_404(ItensPedido, cod_pedido=pedido, cod_prod=produto_id)
+    return render(request, 'inserir_devolucao.html', {'pedido': pedido, 'item': item})
 
+def salvar_devolucao(request, pedido_id, produto_id):
+    if request.method == 'POST':
+        quantidade_dev = int(request.POST['quantidade_dev'])
+        pedido = get_object_or_404(Pedido, pk=pedido_id)
+        item = get_object_or_404(ItensPedido, cod_pedido=pedido, cod_prod=produto_id)
+
+        # Atualiza o campo quantidade_dev
+        item.quantidade_dev += quantidade_dev
+        item.save()
+
+        return redirect('detalhes_pedido', pedido_id=pedido.pk)
+"""
+def enviar_mensagem_whatsapp(request):
+    # Configuração das credenciais do Twilio
+    account_sid = 'AC5b91f160ea918085aeaee94d4bf9d92b'
+    auth_token = 'd0f412b9d72a901e32cf43b551e0e0b5'
+    client = Client(account_sid, auth_token)
+
+    # Número de telefone válido Twilio como remetente
+    numero_twilio = '+12054092338'
+
+    # Número de telefone para o qual você deseja enviar a mensagem
+    numero_whatsapp = '+5544991683525'
+
+    # Cria a mensagem de texto
+    message = client.messages.create(
+        body='Olá, mundo!',
+        from_=numero_twilio,
+        to=numero_whatsapp
+    )
+
+    return HttpResponse(f'Mensagem enviada para {numero_whatsapp}. SID da mensagem: {message.sid}')
+"""
+from django.shortcuts import render, HttpResponse
+from twilio.rest import Client
+
+def enviar_mensagem_whatsapp(request):
+    # Configuração das credenciais do Twilio
+    account_sid = 'AC5b91f160ea918085aeaee94d4bf9d92b'
+    auth_token = 'd0f412b9d72a901e32cf43b551e0e0b5'
+    client = Client(account_sid, auth_token)
+
+    # Número de telefone válido Twilio como remetente
+    numero_twilio = '+12054092338'
+
+    # Número de telefone para o qual você deseja enviar a mensagem
+    numero_whatsapp = '+5544991576676'
+
+    # Cria a mensagem de texto
+    message = client.messages.create(
+        body='OI Princesa. SEu nome é TAIS NE? ',
+        from_=numero_twilio,
+        to=numero_whatsapp
+    )
+
+    return HttpResponse(f'Mensagem enviada para {numero_whatsapp}. SID da mensagem: {message.sid}')
 
 def relatorio_resumo(request):
     relatorio_semanal = Pedido.objects.annotate(semana=TruncWeek('data_criacao')).values('semana').annotate(
