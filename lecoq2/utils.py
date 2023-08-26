@@ -7,9 +7,18 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, 
 from django.http import HttpResponse
 
 
-def format_decimal(value):
 
+def format_numero(value):
+    return f'{value:.0f}'
+
+def format_decimal2(value):
     return f'R$ {value:.2f}'
+
+from babel.numbers import format_currency
+
+def format_decimal(value):
+    formatted_value = format_currency(value, 'BRL', locale='pt_BR')
+    return formatted_value
 
 def gerar_pdf_pedido(pedido):
     response = HttpResponse(content_type='application/pdf')
@@ -47,7 +56,7 @@ def gerar_pdf_pedido(pedido):
         fontName='Helvetica-Bold',  # Nome da fonte
         fontSize=14,  # Tamanho da fonte
         alignment=2,
-        textColor=colors.black  # Cor do texto
+        textColor=colors.red  # Cor do texto
     )
 
     styles = getSampleStyleSheet()
@@ -88,15 +97,17 @@ def gerar_pdf_pedido(pedido):
     espaco = Spacer(1, 20)  # Altura do espaço em branco (em pontos)
     story.append(espaco)
 
-    data = [['             Produto             ', ' Quantidade ', '   Preço R$   ', '  Sub Total R$  ']]
+    data = [['             Produto             ', ' Qtd ',  ' Devolução ', 'Qtd Cobrazado','   Preço   ', '  Sub Total  ']]
 
     for item in pedido.itenspedido_set.all():
-        qtde  = format_decimal(item.quantidade)
-        preco = format_decimal(item.preco)
-        subtotal = format_decimal(item.quantidade*item.preco)
+        qtde       = format_numero(item.quantidade)
+        qtde_dev   = format_numero(item.quantidade_dev)
+        qtde_total = format_numero(item.quantidade-item.quantidade_dev)
+        preco      = format_decimal(item.preco)
+        subtotal   = format_decimal(item.quantidade*item.preco)
 
-        data.append([item.cod_prod.nome, qtde, preco, subtotal])
-
+        data.append([item.cod_prod.nome, qtde, qtde_dev, qtde_total, preco, subtotal])
+    altura_linha = 20
     table = Table(data)
     style_table = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
@@ -114,20 +125,24 @@ def gerar_pdf_pedido(pedido):
                               ('FONTSIZE', (0, 9), (-1, 9), 12),
 
                               # Definir o tamanho da fonte para 14
-                              ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                              ('BOTTOMPADDING', (0, 0), (-1, 0), 14),
                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
                               ('FONTBOLD', (0, 1), (-1, -1), 1),
                               ('FONTITALIC', (0, 1), (-1, -1), 1),
-                              ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+                              ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                              # Adicione as linhas abaixo para configurar as bordas das células
+                              ('LINEBELOW', (0, 1), (-1, -1), 1, colors.black),
+                              ('LINEABOVE', (0, -1), (-1, -1), 1, colors.black),
+                              ('LINEAFTER', (-1, 0), (-1, -1), 1, colors.black),
+                              ('LINEBEFORE', (0, 0), (0, -1), 1, colors.black),
+                              ])
 
 
     table.setStyle(style_table)
 
     story.append(table)
-
     story.append(espaco)
-    story.append(Paragraph(f"Valor do Pedido R$ {format_decimal(pedido.valor)}", style_custom))
-
+    story.append(Paragraph(f"Valor do Pedido {format_decimal(pedido.valor)}", style_custom))
 
     doc.build(story)
     return response

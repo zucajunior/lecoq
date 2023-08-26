@@ -1,13 +1,117 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block content %}
+    <style>
+        /* Estilos personalizados aqui */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .container {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-B5D32SbC-L7abaQfAeY4UC2ZBbdluUm9Q&usqp=CAU'); /* Substitua pelo caminho da sua imagem */
+            background-size: 100% 100%; /* Ajusta a imagem tanto na largura quanto na altura */
+            /*background-size: cover; /* Para dimensionar a imagem para cobrir todo o container */
+            background-repeat: no-repeat; /* Evita repetição da imagem */
+            background-position: center; /* Centraliza a imagem no container */
+
+            max-width: 100%;
+            max-height: 100%;
+
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container2 {
+            background-image: url('http://zuca.site/image/TCC0001.jpg'); /* Substitua pelo caminho da sua imagem */
+            background-size: cover; /* Para dimensionar a imagem para cobrir todo o container */
+            background-repeat: no-repeat; /* Evita repetição da imagem */
+            background-position: center; /* Centraliza a imagem no container */
+
+            max-width: 100%;
+            max-height: 100%;
+
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .detalhes-pedido {
+            margin-bottom: 20px;
+
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            height: 40px;
+            background-color: #a3cfbb;
+            font-size: 18px; /* Aumentar o tamanho da fonte dos labels */
+            text-align: right; /* Alinha os labels à direita */
+            width: 200px; /* Define uma largura fixa para os labels */
+            display: inline-block; /* Permite que o width funcione */
+            margin-right: 10px; /* Adiciona um espaçamento entre label e campo */
+            line-height: 40px;
+        }
+        input[type="text"], input[type="number"], select {
+            font-weight: bold;
+            width: 200px; /* Aumentar a largura dos campos de entrada */
+            padding: 10px; /* Aumentar o espaçamento interno dos campos */
+            font-size: 24px; /* Aumentar o tamanho da fonte dos campos */
+            line-height: 40px;
+        }
+        select[name="cod_prod"] {
+            font-weight: bold;
+            font-size: 24px;
+            width: 50%; /* Você pode ajustar o valor conforme necessário */
+        }
+        button {
+            font-size: 18px; /* Aumentar o tamanho da fonte do botão */
+            padding: 10px 20px; /* Aumentar o espaçamento interno do botão */
+        }
+    </style>
     <div class="container">
         <h1>Editar Item de Pedido</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="cod_pedido" value="{{ pedido.pk }}">
+            <div class="form-group">
+                <label for="{{ form.cod_prod.id_for_label }}">Produto:</label>
+                {{ form.cod_prod }}
+                {{ form.cod_prod.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.quantidade.id_for_label }}">Quantidade:</label>
+                {{ form.quantidade }}
+                {{ form.quantidade.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.quantidade_dev.id_for_label }}">Devolução:</label>
+                {{ form.quantidade_dev }}
+                {{ form.quantidade_dev.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.data_vencimento.id_for_label }}">Data de Vencimento:</label>
+                {{ form.data_vencimento }}
+                {{ form.data_vencimento.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.preco.id_for_label }}">Preço:</label>
+                {{ form.preco }}
+                {{ form.preco.errors }}
+            </div>
+
+            <button class="btn btn-secondary" onclick="window.location='{% url 'detalhes_pedido' pedido_id=pedido.pk %}'">Cancelar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
-        <a href="{% url 'detalhes_pedido' pedido_id=pedido.pk %}" class="btn btn-secondary">Cancelar</a>
+
     </div>
 {% endblock %}

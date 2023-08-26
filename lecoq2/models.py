@@ -80,13 +80,13 @@ class Cliente(models.Model):
 
 
 class Pedido(models.Model):
-    codigo       = models.AutoField(primary_key=True)
-    cod_cliente  = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    data_entrega = models.DateField()
-    observacao   = models.TextField(max_length=300, null=True, blank=True)
-    faturado     = models.BooleanField(default=False)
-    valor = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, null= False)
-    data_criacao = models.DateTimeField(default=timezone.now)
+    codigo         = models.AutoField(primary_key=True)
+    cod_cliente    = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    data_entrega   = models.DateField()
+    observacao     = models.TextField(max_length=300, null=True, blank=True)
+    faturado       = models.BooleanField(default=False)
+    valor          = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, null= False)
+    data_criacao   = models.DateTimeField(default=timezone.now)
     data_alteracao = models.DateTimeField(auto_now=True)
     def __str__(self):
         return f"Pedido {self.codigo} - Cliente: {self.cod_cliente.nome} - Valor: {self.valor} - Produto {self.data_entrega} - Faturado: {self.faturado}"
@@ -103,6 +103,9 @@ class ItensPedido(models.Model):
 
     def __str__(self):
         return f"Pedido {self.cod_pedido.codigo} - Produto {self.cod_prod.nome}"
+
+    def quantidade_cobrado(self):
+        return self.quantidade - self.quantidade_dev
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

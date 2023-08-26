@@ -2,7 +2,11 @@
 <html>
 <head>
     <title>Detalhes do Pedido</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         /* Estilos personalizados aqui */
         body {
@@ -22,6 +26,10 @@
         }
         label {
             font-weight: bold;
+        }
+        .btn-group {
+            margin-right: 3px;
+            white-space: nowrap; /* Evita que os botões se quebrem em várias linhas */
         }
     </style>
 </head>
@@ -63,12 +71,17 @@
         width: 100%;
         border-collapse: collapse;
     }
+    .transparent-bg {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
 
     /* Estilos para as células da tabela */
     .table th,
     .table td {
         padding: 5px; /* Espaçamento interno */
-        max-width: 150px; /* Largura máxima das células */
+        max-width: 250px; /* Largura máxima das células */
         white-space: nowrap; /* Evita que o texto seja quebrado em várias linhas */
         overflow: hidden; /* Oculta conteúdo que ultrapassa a largura */
         text-overflow: ellipsis; /* Adiciona reticências (...) para conteúdo cortado */
@@ -84,7 +97,7 @@
                     <th>Produto</th>
                     <th>Quantidade</th>
                     <th>Devolução</th>
-
+                    <th>qtd Cobrado</th>
                     <th>Preco</th>
                     <th>Sub Total</th>
                     <th>Data de Vencimento</th>
@@ -96,14 +109,23 @@
                         <td>{{ item.cod_prod.nome }}</td>
                         <td>{{ item.quantidade }}</td>
                         <td>{{ item.quantidade_dev }}</td>
+                        <td>{{ item.quantidade_cobrado}}</td>
                         <td>{{ item.preco }}</td>
                         <td>{{ item.calcular_valor_total }}</td>
                         <td>{{ item.data_vencimento }}</td>
-                        <td>
-                            <a href="{% url 'inserir_devolucao' pedido_id=pedido.pk produto_id=item.cod_prod.pk %}" class="btn btn-primary">DEVOLUÇÃO</a>
-                            <a href="{% url 'editar_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-primary">Editar</a>
-                            <a href="{% url 'excluir_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-sm btn-danger">Excluir</a>
-
+                        <td class="btn-group">
+                            <a href="{% url 'inserir_devolucao' pedido_id=pedido.pk produto_id=item.cod_prod.pk %}" class="btn btn-warning transparent-bg">
+                                <button type="button" class="btn btn-info ">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </button></a>
+                            <a href="{% url 'editar_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-primary transparent-bg">
+                                <button type="button" class="btn btn-warning ">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </button></a>
+                            <a href="{% url 'excluir_item_pedido' pedido_id=pedido.pk cod_prod=item.cod_prod.pk %}" class="btn btn-danger transparent-bg">
+                                <button type="button" class="btn btn-danger ">
+                                    <i class="fas fa-trash"></i>
+                                </button></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -111,7 +133,10 @@
         </table>
         <a href="{% url 'cadastrar_item_pedido' pedido.codigo %}" class="btn btn-primary">Incluir Produto</a>
         <a href="{% url 'listar_pedidos' %}" class="btn btn-primary">Finalizar</a>
-        <a href="{% url 'imprimir_pedido' pedido_id=pedido.pk %}" class="btn btn-secondary">Imprimir Pedido</a>
+        <a href="{% url 'imprimir_pedido' pedido_id=pedido.pk %}" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary" id="printButton">
+                <i class="fas fa-print"></i> Imprimir
+            </button></a>
 
     </div>
 
