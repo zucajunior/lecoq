@@ -225,13 +225,14 @@ def imprimir_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, pk=pedido_id)
 
     # Gera o PDF do pedido usando a função do utils
-    pdf_file = gerar_pdf_pedido(pedido)
+    pdf_file, filename = gerar_pdf_pedido(pedido)
 
     # Define o cabeçalho do response para PDF
     response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="pedido_{pedido_id}.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
 
     return response
+
 
 def pedidos_aberto(request):
     pedidos = Pedido.objects.filter(faturado=False)

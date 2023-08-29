@@ -22,9 +22,10 @@ def format_decimal(value):
 
 def gerar_pdf_pedido(pedido):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="pedido_{pedido.cod_cliente.nome}_{pedido.data_entrega}.pdf"'
+    filename = f'LeCoq Pedido_{pedido.cod_cliente.nome}_{pedido.data_entrega}.pdf'
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
 
-    doc = SimpleDocTemplate(response, pagesize=letter,topMargin=10)
+    doc = SimpleDocTemplate(response, pagesize=letter, topMargin=10)
     story = []
 
     """custom_style = ParagraphStyle(
@@ -97,7 +98,7 @@ def gerar_pdf_pedido(pedido):
     espaco = Spacer(1, 20)  # Altura do espaço em branco (em pontos)
     story.append(espaco)
 
-    data = [['             Produto             ', ' Qtd ',  ' Devolução ', 'Qtd Cobrazado','   Preço   ', '  Sub Total  ']]
+    data = [['             Produto             ', ' Qtd ',  ' Devolução ', 'Qtd Total','   Preço   ', '  Sub Total  ']]
 
     for item in pedido.itenspedido_set.all():
         qtde       = format_numero(item.quantidade)
@@ -145,4 +146,4 @@ def gerar_pdf_pedido(pedido):
     story.append(Paragraph(f"Valor do Pedido {format_decimal(pedido.valor)}", style_custom))
 
     doc.build(story)
-    return response
+    return response, filename
