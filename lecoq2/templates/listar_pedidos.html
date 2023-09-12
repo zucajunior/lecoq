@@ -56,11 +56,20 @@
             border: none;
             padding: 0;
         }
+         .faturado {
+             background-color: yellowgreen;
+         }
+        .nao-faturado {
+            background-color: transparent;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Listagem de Pedidos</h1>
+        <input type="text" id="search" placeholder="Digite o nome do cliente">
+
         <div class="table-container">
             <table class="table-pedidos">
                 <thead>
@@ -71,12 +80,12 @@
                         <th class="sortable">Data de Entrega</th>
                         <th class="sortable">Valor do Pedido</th>
                         <th>Faturado</th>
-                        <th>Ações</th>
+                        <th>    Operações </th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for pedido in pedidos %}
-                        <tr>
+                        <tr class="{% if pedido.faturado %} faturado {% else %} nao-faturado {% endif %}">
                             <td>{{ pedido.codigo }}</td>
                             <td class="nome-cell">{{ pedido.cod_cliente.nome }}</td>
                             <td>{{ pedido.data_criacao }}</td>
@@ -85,23 +94,22 @@
                             <td>{% if pedido.faturado %} Sim {% else %} Não {% endif %}</td>
                             <td class="btn-group">
                                 <a href="{% url 'imprimir_pedido' pedido.codigo %}" class="btn btn-info transparent-bg">
-                                    <button type="button" class="btn btn-success ">
+                                    <button type="button" class="btn btn-success " title="IMPRIMIR PEDIDO">
                                         <i class="fas fa-print"></i>
                                     </button>
                                 </a>
-                                <a href="{% url 'enviar_mensagem_whatsapp' %}" class="btn btn-primary">Enviar Relatório via WhatsApp</a>
                                 <a href="{% url 'detalhes_pedido' pedido.codigo %}" class="btn btn-info transparent-bg">
-                                    <button type="button" class="btn btn-info ">
+                                    <button type="button" class="btn btn-info " title="DETALHES DO PEDIDO - verificar Produtos/Quantidade">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
                                 <a href="{% url 'editar_pedido' pedido.codigo %}" class="btn btn-primary transparent-bg">
-                                    <button type="button" class="btn btn-warning ">
+                                    <button type="button" class="btn btn-warning " title="EDITAR DADOS DO PEDIDO">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                 </a>
                                 <a href="{% url 'excluir_pedido' pedido.codigo %}" class="btn btn-danger transparent-bg">
-                                    <button type="button" class="btn btn-danger ">
+                                    <button type="button" class="btn btn-danger " title="EXCLUIR PEDIDO">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </a>
@@ -161,5 +169,17 @@
             }
         });
     </script>
+    <script>
+        $(document).ready(function(){
+          $("#search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".table-pedidos tbody tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
+
+
 </body>
 </html>

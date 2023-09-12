@@ -98,16 +98,19 @@ def gerar_pdf_pedido(pedido):
     espaco = Spacer(1, 20)  # Altura do espaço em branco (em pontos)
     story.append(espaco)
 
-    data = [['             Produto             ', ' Qtd ',  ' Devolução ', 'Qtd Total','   Preço   ', '  Sub Total  ']]
+    data = [['             Produto             ', ' Entrega ',  'Devolução', '  Vl Unit  ','Valor','Desconto', '  Sub Total  ']]
 
     for item in pedido.itenspedido_set.all():
         qtde       = format_numero(item.quantidade)
         qtde_dev   = format_numero(item.quantidade_dev)
-        qtde_total = format_numero(item.quantidade-item.quantidade_dev)
+        #qtde_total = format_numero(item.quantidade-item.quantidade_dev)
         preco      = format_decimal(item.preco)
-        subtotal   = format_decimal(item.quantidade*item.preco)
+        valor      = format_decimal(item.quantidade * item.preco)
+        desconto   = format_decimal(item.quantidade_dev*item.preco)
+        subtotal   = format_decimal(item.quantidade*item.preco - item.quantidade_dev*item.preco)
 
-        data.append([item.cod_prod.nome, qtde, qtde_dev, qtde_total, preco, subtotal])
+
+        data.append([item.cod_prod.nome, qtde, qtde_dev, preco,valor, desconto, subtotal])
     altura_linha = 20
     table = Table(data)
     style_table = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),

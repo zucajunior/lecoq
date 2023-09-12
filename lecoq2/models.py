@@ -88,6 +88,7 @@ class Pedido(models.Model):
     valor          = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, null= False)
     data_criacao   = models.DateTimeField(default=timezone.now)
     data_alteracao = models.DateTimeField(auto_now=True)
+    forma_pgto     = models.TextField(max_length=50, null= True, blank= True)
     def __str__(self):
         return f"Pedido {self.codigo} - Cliente: {self.cod_cliente.nome} - Valor: {self.valor} - Produto {self.data_entrega} - Faturado: {self.faturado}"
 
